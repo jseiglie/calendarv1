@@ -4,6 +4,11 @@
 
 This is a React application that integrates with Google Calendar for managing appointments. It allows users to view, create, and manage their calendar events seamlessly.
 
+## NPS Packages:
+ - gapi-script 
+ - googleapi
+
+
 ## Features
 
 - View Google Calendar events
