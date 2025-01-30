@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
-import Calendar from './components/Calendar';
 import GoogleCalendar from './components/calendal2';
-import GoogleCalendarEmbed from './components/calendarview';
 
 function App() {
   return (
@@ -11,8 +9,6 @@ function App() {
         <h1>Google Calendar Integration</h1>
       </header>
       <main>
-        <GoogleCalendarEmbed />
-        {/* <Calendar /> */}
         <GoogleCalendar/>
       </main>
     </div>

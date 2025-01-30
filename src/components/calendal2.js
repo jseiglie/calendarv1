@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { gapi } from "gapi-script";
 
-const CLIENT_ID = "414379219750-lm3ligbbu73rf0ceta0q2camgn416ooq.apps.googleusercontent.com";
-const API_KEY = "AIzaSyCIg3V7XSlINTmvkI-oPmsQmqDODnF9wEA";
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const API_KEY = process.env.REACT_APP_API_KEY;
 const SCOPES = "https://www.googleapis.com/auth/calendar";
 
 const GoogleCalendar = () => {
@@ -39,7 +39,7 @@ const GoogleCalendar = () => {
     gapi.auth2.getAuthInstance().signOut();
     setEvents([]);
   };
-
+ //trae eventos del calendario
   const fetchEvents = async () => {
     if (!isSignedIn) return;
 
@@ -61,8 +61,8 @@ const GoogleCalendar = () => {
       console.error("Error fetching events: ", error);
     }
   };
-
-  const schedule = {
+//horarios disponibles para reuniones (vine del backend)
+const schedule = {
     0: { start: 0, end: 0 }, // Sunday (no meetings)
     1: { start: 8, end: 18 }, // Monday
     2: { start: 8, end: 18 }, // Tuesday
@@ -71,7 +71,7 @@ const GoogleCalendar = () => {
     5: { start: 8, end: 18 }, // Friday
     6: { start: 10, end: 14 }, // Saturday
   };
-
+//calcula los horarios disponibles (LIBRES) para reuniones
   const calculateFreeTimeSlots = (events) => {
     const freeTimeSlots = {};
 
@@ -114,14 +114,14 @@ const GoogleCalendar = () => {
     console.log("Free Time Slots: ", freeTimeSlots);
     setFreeTimeSlots(freeTimeSlots);
   };
-
+  // añade evento al calendario
   const addEvent = async (start, end) => {
     if (!isSignedIn) return;
 
     const event = {
-      summary: "Meeting with Javier",
+      summary: "Meeting with {{profesional seleccionado}}", //recoger de un form o hardcodear en dependencia de lo que se quiera
       location: "Online",
-      description: "Discussing React project",
+      description: "Discussing React project", //recoger de un form o hardcodear en dependencia de lo que se quiera
       start: {
         dateTime: start.toISOString(),
         timeZone: "Europe/Madrid",
@@ -144,7 +144,7 @@ const GoogleCalendar = () => {
       console.error("Error creating event: ", error);
     }
   };
-
+//muestra espacios disponibles para reuniones
   const renderFreeTimeSlots = () => {
     return Object.keys(freeTimeSlots).map(day => (
       <div key={day}>
